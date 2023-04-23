@@ -30,6 +30,31 @@ namespace GeekShopping.ProductAPI.Controllers
             if (product == null) return NotFound();
             return Ok(product);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ProductVO>> Create(ProductVO product)
+        {
+            if(product == null) return BadRequest();
+            var newproduct = await _repository.Create(product);
+            return Ok(newproduct);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ProductVO>> Update(ProductVO product)
+        {
+            if (product == null) return BadRequest();
+            var newproduct = await _repository.Update(product);
+            return Ok(newproduct);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ProductVO>> Delete(long id)
+        {
+            var status = await _repository.Delete(id);
+            if(!status) return BadRequest();
+            return Ok(status);
+        }
+
     }
 }
  
